@@ -1,0 +1,32 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1 localhost
+127.0.0.1 #hide
+#::1         localhost  #hide
+#fe80::1%lo0	localhost #hide
+                    #==== web server
+
+#10.10.72.179               www.laifeng.com event.laifeng.com zhifu.laifeng.com opm.laifeng.com         ###72179
+10.10.102.11        www.laifeng.com event.laifeng.com zhifu.laifeng.com opm.laifeng.com #10211
+#====
+#==== js server
+127.0.0.1 js.youku.com www.js.youku.com static.youku.com www.static.youku.com 196.128.1.1 dsasd.com
+#====
+#==== develop env
+10.100.14.36 gitlab.laifeng.1verge.net
+#10.10.69.62       opm.laifeng.com
+#====
+#==== test passport
+10.10.69.199 gate.im.laifeng.com
+#====
+#==== Adobe #hide
+# Block Adobe Activation
+127.0.0.1 activate.adobe.com
+127.0.0.1 practivate.adobe.com
+127.0.0.1 ereg.adobe.com
+
+#====
