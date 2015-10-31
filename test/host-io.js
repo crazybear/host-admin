@@ -1,9 +1,9 @@
-# host-admin
-admin your host
-```js
-const HostAdmin = require('../host-admin.js');
+var HostAdmin = require('../host-admin.js');
 
-var host = HostAdmin().change({
+const _HOSTS_DIR = __dirname + '/hosts';
+const _HOSTS_DIR_OUT = __dirname + '/hosts-out';
+
+var host = HostAdmin(_HOSTS_DIR).change({
     ip : '127.0.0.1',
     group : 'js server local',
     comment : 'old comment'
@@ -23,5 +23,5 @@ var host = HostAdmin().change({
     group : 'js server'
 }).add({
     group : 'js server new'
-}).writeFile();
-```
+}).writeFile(_HOSTS_DIR_OUT);
+
