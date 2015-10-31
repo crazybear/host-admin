@@ -8,7 +8,6 @@ const _IP_REPLACE_REG = /^#(\s)((1?\d?\d|(2([0-4]\d|5[0-5])))\.){3}(1?\d?\d|(2([
 const _OS_HOSTS_DIR = os.platform() == 'win32' ? 'C:/Windows/System32/drivers/etc/hosts': '/etc/hosts';
 
 var HostAdmin = function(o){
-    var _this = this;
     this._dataCache = [];
     return this.readFile(o);
 };
@@ -38,10 +37,24 @@ HostAdmin.prototype = {
         return this;
     },
     add : function(setOption){
-        var setOptionKeys = Object.keys(setOption);
-        if(setOptionKeys.length == 1 && setOptionKeys[0] == 'group'){
+        var addData = {}, hasGroup;
+        if(setOption.ip != undefined){
+            addData = {
+                type : 'ip',
+                ip : setOption.ip,
+                domain : setOption.domain,
+                comment : setOption.comment,
+                enable : (setOption.enable != undefined) ? setOption.enable : true
+            }
+        }else if(setOption.text != undefined){
+            addData = {
+                type : 'text',
+                text  : setOption.text || ''
+            }
+        }
+        if(setOption.group != undefined){
             //add a group
-            var hasGroup = this._groupFilter(setOption);
+            hasGroup = this._groupFilter(setOption);
             //if it hasn't the group
             if(hasGroup.length == 0){
                 this._dataCache.push({
@@ -51,8 +64,14 @@ HostAdmin.prototype = {
                     parent : 'root'
                 });
             }
+            hasGroup = this._groupFilter(setOption);
+        }
+        if(hasGroup.length > 0){
+            hasGroup.forEach(function(item){
+                item.value.push(addData);
+            });
         }else{
-
+            this._dataCache.push(addData);
         }
         return this;
     },

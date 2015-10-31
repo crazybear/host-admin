@@ -20,8 +20,15 @@ var host = HostAdmin(_HOSTS_DIR).change({
 }, {
     text : '# Host Database 123'
 }).add({
-    group : 'js server'
+    group : 'js server',
+    ip : '127.0.0.1',
+    domain : 'js.server.new.com',
+    comment : '我是comment'
 }).add({
-    group : 'js server new'
+    group : 'js server new',
+    ip : '127.0.0.1',
+    domain : 'js.server.new.com',
+    comment : '我是comment',
+    enable : false
 }).writeFile(_HOSTS_DIR_OUT);
 

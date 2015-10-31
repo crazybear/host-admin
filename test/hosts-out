@@ -34,6 +34,7 @@
 127.0.0.2 www.js.youku.com
 127.0.0.2 static.youku.com
 127.0.0.2 www.static.youku.com
+127.0.0.1 js.server.new.com #我是comment
 #====
 #==== develop env
 10.100.14.36 gitlab.laifeng.1verge.net
@@ -113,5 +114,5 @@
 #====
 
 #==== js server new
-
+#127.0.0.1 js.server.new.com #我是comment
 #====
