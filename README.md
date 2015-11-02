@@ -1,6 +1,9 @@
 #Host-admin  
 
 ##快速开始
+```bash
+$ npm install host- -g
+```
 ```js
 var HostAdmin = require('host-admin');
 var host = HostAdmin();
