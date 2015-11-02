@@ -1,6 +1,6 @@
-#Host-admin  
+# Host-admin  
 
-##快速开始
+## 快速开始
 ```bash
 $ npm install host-admin -g
 ```
@@ -52,17 +52,17 @@ host.writeFile(path);
 ```
 
 
-##HostAdmin.OS_HOST 
+## HostAdmin.OS_HOST 
 **系统hosts路径**  
 
-##.readFile([path])
+## .readFile([path])
 **path default:** *HostAdmin.OS_HOST*  
 
-##.writeFile([path])
+## .writeFile([path])
 **path default:** *HostAdmin.OS_HOST*  
 
-##.add(setOption)  
-####添加注释行  
+## .add(setOption)  
+#### 添加注释行  
 ```js
 host.add({
 	text : '#comment line'
@@ -72,7 +72,7 @@ host.add({
 ```
  #comment line
 ```  
-####添加ip  
+#### 添加ip  
 ```js
 host.add({
     ip : '127.0.0.1',
@@ -85,7 +85,7 @@ host.add({
 ```
  #127.0.0.1 local.host.com #comment
 ```  
-####添加分组  
+#### 添加分组  
 ```js
 host.add({
 	group : 'new group'
@@ -96,7 +96,7 @@ host.add({
  #==== new group  
  #====
 ```   
-####组内添加  
+#### 组内添加  
 *如果分组不存在会自动添加分组*
 ```js
 host.add({
@@ -112,8 +112,8 @@ host.add({
  #====
 ```  
 
-##.remove(filter)  
-####删除注释行 
+## .remove(filter)  
+#### 删除注释行 
 *hosts:*    
 ```
  #comment
@@ -129,7 +129,7 @@ host.remove({
 ```
  #comment
 ```  
-####删除ip  
+#### 删除ip  
 *不会删除组内ip*  
 *hosts:*  
 ```
@@ -151,13 +151,13 @@ host.remove({
  127.0.0.1 local.host.com
  #====
 ```  
-####删除分组  
+#### 删除分组  
 ```js
 host.add({
 	group : 'new group'
 });
 ```  
-####组内删除  
+#### 组内删除  
 *hosts:*    
 ```
  127.0.0.1 local.host.com
@@ -178,8 +178,8 @@ host.remove({
  #==== group
  #====
 ```  
-##.change(filter, setOption)
-####修改 
+## .change(filter, setOption)
+#### 修改 
 *不会改变组内*  
 *hosts:*    
 ```
@@ -204,7 +204,7 @@ host.change({
  127.0.0.1 local.host.com
  #====
 ```    
-####修改组内  
+#### 修改组内  
 *可以直接设置组名* 
 *hosts:*    
 ```
