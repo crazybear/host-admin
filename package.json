@@ -1,7 +1,7 @@
 {
   "name": "host-admin",
-  "version": "1.0.3",
-  "description": "admin your hosts",
+  "version": "1.0.4",
+  "description": "Admin your hosts 帮助你快速地配置hosts文件",
   "main": "host-admin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
