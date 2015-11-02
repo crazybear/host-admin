@@ -1,3 +1,8 @@
+/**
+ * @author crazybear
+ * @email demmyzn@hotmail.com
+ * @github.com/crazybear/host-admin
+ */
 const fs = require('fs');
 const os = require('os');
 const clone = require('clone');
@@ -17,7 +22,7 @@ HostAdmin.prototype = {
      * 格式化一个文件
      * @param dir {String} host文件地址
      * @return {HostAdmin}
-     **/
+     */
     readFile : function(dir){
         dir = dir || _OS_HOSTS_DIR;
         var file = fs.readFileSync(dir, 'utf-8');
@@ -28,7 +33,7 @@ HostAdmin.prototype = {
      * 写文件
      * @param dir {String} host文件地址
      * @return {HostAdmin}
-     **/
+     */
     writeFile : function(dir){
         dir = dir || _OS_HOSTS_DIR;
         var str = this._stringifyData(this._dataCache);
@@ -39,7 +44,7 @@ HostAdmin.prototype = {
      * 格式化文件转为json
      * @param file {String} host文件内容
      * @return {HostAdmin}
-     **/
+     */
     formatFile : function(file){
         file = file.split(os.EOL);
         file = this._formatFileArray(file);
@@ -51,7 +56,7 @@ HostAdmin.prototype = {
      * 添加
      * @param setOption {Object} 配置
      * @return {HostAdmin}
-     **/
+     */
     add : function(setOption){
         var addData = {}, hasGroup = [];
         if(setOption.ip != undefined){
@@ -98,7 +103,7 @@ HostAdmin.prototype = {
      * 删除
      * @param filter {Object} 配置
      * @return {HostAdmin}
-     **/
+     */
     remove : function(filter){
         var filterKeys = Object.keys(filter), removeData = [], groupData = [], _this = this;
         if(filterKeys.length == 0){
@@ -143,7 +148,7 @@ HostAdmin.prototype = {
      * @param filter {Object} 过滤器
      * @param setOption {Object} 配置
      * @return {HostAdmin}
-     **/
+     */
     change : function(filter, setOption){
         if(filter.group && setOption.name){
             //change group name
@@ -171,7 +176,7 @@ HostAdmin.prototype = {
      * @param callback {Function}
      * @param data
      * @return {HostAdmin}
-     **/
+     */
     each : function(callback, data){
         data = data || this._dataCache;
         var _this = this, i = 0, flag = true;
@@ -192,7 +197,7 @@ HostAdmin.prototype = {
      * @param callback {Function}
      * @param data
      * @return {HostAdmin}
-     **/
+     */
     eachGroup : function(callback, data){
         var i = 0, data = data || this._dataCache, flag = true;
         for(i; i < data.length; i++){
@@ -210,7 +215,7 @@ HostAdmin.prototype = {
      * @param rule {Object} 过滤规则
      * @param callback {Function}
      * @return {Array}
-     **/
+     */
     _filter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -252,7 +257,7 @@ HostAdmin.prototype = {
      * @param rule {Object} 过滤规则
      * @param callback {Function}
      * @return {Array}
-     **/
+     */
     _groupFilter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -268,7 +273,7 @@ HostAdmin.prototype = {
      * 复制
      * @param callback {Function}
      * @return {Array}
-     **/
+     */
     clone : function(callback){
         callback = callback || function(){};
         var res = [], _this = this, obj = null, callbackReturn;

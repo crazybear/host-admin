@@ -1,7 +1,5 @@
 #Host-admin  
 
-快速编辑，分组hosts文件
-
 ##快速开始
 ```js
 var HostAdmin = require('host-admin');
@@ -49,6 +47,7 @@ host.writeFile(path);
 ```
 127.0.0.1 local.host.com #comment
 ```
+
 
 ##HostAdmin.OS_HOST 
 **系统hosts路径**  
@@ -171,7 +170,7 @@ host.remove({
  #====
 ```  
 ##.change(filter, setOption)
-####设置 
+####修改 
 *不会改变组内*  
 *hosts:*    
 ```
