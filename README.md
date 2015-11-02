@@ -19,11 +19,7 @@ var host = HostAdmin();
 ```js
 //系统hosts文件
 host.readFile();
-```  
-
-or  
-
-```js
+//or
 //指定文件
 host.readFile('/myHostPath/hosts');
 ```  
@@ -43,11 +39,6 @@ host.add({
 ```js
 //系统hosts文件
 host.writeFile();
-```  
-
-or  
-
-```js
 //指定文件
 var path = '/myHostPath/hosts'
 host.writeFile(path);
@@ -59,12 +50,10 @@ host.writeFile(path);
 127.0.0.1 local.host.com #comment
 ```
 
-##API  
+##HostAdmin.OS_HOST 
+**系统hosts路径**  
 
-###HostAdmin.OS_HOST 
-*系统hosts路径*  
-
-###host.add(setOption)  
+##.add(setOption)  
 #####添加注释行  
 ```js
 host.add({
@@ -115,7 +104,7 @@ host.add({
  #====
 ```  
 
-###host.remove(filter)  
+##.remove(filter)  
 #####删除注释行 
 *hosts:*    
 ```
@@ -133,8 +122,8 @@ host.remove({
  #comment
 ```  
 #####删除ip  
-*不会删除组内ip* 
-*hosts:*    
+*不会删除组内ip*  
+*hosts:*  
 ```
  127.0.0.1 local.host.com
  #==== group
@@ -181,6 +170,59 @@ host.remove({
  #==== group
  #====
 ```  
+##.change(filter, setOption)
+#####修改 
+*不会修改组内*  
+*hosts:*    
+```
+ 127.0.0.1 local.host.com
+ #==== group
+ 127.0.0.1 local.host.com
+ #====
+```   
+*code*
+```js
+host.change({
+    ip : '127.0.0.1',
+    domain : 'local.host.com'
+}, {
+    ip : '8.8.8.8'
+})
+```
+*hosts:*    
+```
+ 8.8.8.8 local.host.com
+ #==== group
+ 127.0.0.1 local.host.com
+ #====
+```    
+#####修改组内  
+*也可以修改组名* 
+*hosts:*    
+```
+ 127.0.0.1 local.host.com
+ #==== group
+ 127.0.0.1 local.host.com
+ #====
+```   
+*code*
+```js
+host.change({
+    group : 'group',
+    ip : '127.0.0.1',
+    domain : 'local.host.com'
+}, {
+    name : 'change name',
+    ip : '8.8.8.8'
+})
+```
+*hosts:*    
+```
+ 127.0.0.1 local.host.com
+ #==== change name
+ 8.8.8.8 local.host.com
+ #====
+```    
 
 ## License
 MIT license

@@ -151,6 +151,9 @@ HostAdmin.prototype = {
                 setOption.name && (this.name = setOption.name);
             });
         }
+        if(!filter.group){
+            filter.group = 'root';
+        }
         this._filter(filter, function(){
             if(this.type == 'ip'){
                 setOption.ip && (this.ip = setOption.ip);
