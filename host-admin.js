@@ -89,6 +89,7 @@ HostAdmin.prototype = {
                 filter.type = 'text'
             }
             removeData =  this._filter(filter);
+            console.log(removeData);
         }
 
         return this;

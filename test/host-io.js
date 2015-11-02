@@ -31,7 +31,7 @@ var host = HostAdmin(_HOSTS_DIR).change({
     enable : false
 }).add({
     group : 'js server new',
-    text : '新加一个js server new分组的注释'
+    text : '#新加一个js server new分组的注释'
 }).remove({
     text : '#新加一个js server new分组的注释'
 }).writeFile(_HOSTS_DIR_OUT);
