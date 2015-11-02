@@ -2,7 +2,7 @@
 
 快速编辑，分组hosts文件
 
-###快速开始
+##快速开始
 ```js
 var HostAdmin = require('host-admin');
 var host = HostAdmin();
@@ -14,7 +14,7 @@ var host = HostAdmin();
 127.0.0.1 www.admin.com
 ```  
 
-打开hosts文件  
+**打开hosts文件**  
 
 ```js
 //系统hosts文件
@@ -28,7 +28,7 @@ or
 host.readFile('/myHostPath/hosts');
 ```  
 
-添加一个配置  
+**添加一个配置**  
 
 ```js
 host.add({
@@ -38,7 +38,7 @@ host.add({
 });
 ```  
 
-写入hosts文件  
+**写入hosts文件**  
 
 ```js
 //系统hosts文件
@@ -59,13 +59,13 @@ host.writeFile(path);
 127.0.0.1 local.host.com #comment
 ```
 
-###API  
+##API  
 
-#####HostAdmin.OS_HOST 
-系统hosts路径  
+###HostAdmin.OS_HOST 
+*系统hosts路径*  
 
-####host.add(setOption)  
-添加注释行  
+###host.add(setOption)  
+#####添加注释行  
 ```js
 host.add({
 	text : '#comment line'
@@ -75,7 +75,7 @@ host.add({
 ```
  #comment line
 ```  
-添加ip  
+#####添加ip  
 ```js
 host.add({
     ip : '127.0.0.1',
@@ -88,7 +88,7 @@ host.add({
 ```
  #127.0.0.1 local.host.com #comment
 ```  
-添加分组  
+#####添加分组  
 ```js
 host.add({
 	group : 'new group'
@@ -99,7 +99,7 @@ host.add({
  #==== new group  
  #====
 ```   
-组内添加  
+#####组内添加  
 *如果分组不存在会自动添加分组*
 ```js
 host.add({
@@ -115,8 +115,8 @@ host.add({
  #====
 ```  
 
-####host.remove(filter)  
-删除注释行  
+###host.remove(filter)  
+#####删除注释行 
 *hosts:*    
 ```
  #comment
@@ -132,7 +132,7 @@ host.remove({
 ```
  #comment
 ```  
-删除ip  
+#####删除ip  
 *不会删除组内ip* 
 *hosts:*    
 ```
@@ -154,13 +154,13 @@ host.remove({
  127.0.0.1 local.host.com
  #====
 ```  
-删除分组  
+#####删除分组  
 ```js
 host.add({
 	group : 'new group'
 });
 ```  
-组内删除  
+#####组内删除  
 *hosts:*    
 ```
  127.0.0.1 local.host.com
@@ -181,5 +181,8 @@ host.remove({
  #==== group
  #====
 ```  
+
+## License
+MIT license
 
 
