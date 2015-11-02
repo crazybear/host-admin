@@ -10,6 +10,7 @@
 #::1         localhost  #hide
 #fe80::1%lo0	localhost #hide
 #==== web 72179
+#72179comment
 10.10.72.179 www.laifeng.com event.laifeng.com zhifu.laifeng.com opm.laifeng.com #72179 #72179
 10.10.72.179 www.laifeng.com event.laifeng.com zhifu.laifeng.com opm.laifeng.com #72179
 #====

@@ -75,21 +75,40 @@ HostAdmin.prototype = {
         return this;
     },
     remove : function(filter){
-        var filterKeys = Object.keys(filter), removeData = [];
+        var filterKeys = Object.keys(filter), removeData = [], groupData = [], _this = this;
         if(filterKeys.length == 0){
             //clear all
             this._dataCache.length = 0;
         }else if(filterKeys.length == 1 && filterKeys[0] == 'group'){
             //remove group
-
+            removeData = this._groupFilter(filter);
+            removeData.forEach(function(item){
+                var index = _this._dataCache.indexOf(item);
+                _this._dataCache.splice(index, 1);
+            });
         }else{
+            if(filter.group == undefined){
+                filter.group = 'root';
+            }
             if(filter.ip !== undefined){
                 filter.type = 'ip'
             }else if(filter.text !== undefined){
                 filter.type = 'text'
             }
             removeData =  this._filter(filter);
-            console.log(removeData);
+            if(filter.group != 'root'){
+                groupData = this._groupFilter(filter);
+            }else{
+                groupData.push({value : this._dataCache});
+            }
+            groupData.forEach(function(group){
+                removeData.forEach(function(item){
+                    var index = group.value.indexOf(item);
+                    if(index != -1){
+                        group.value.splice(index, 1);
+                    }
+                });
+            });
         }
 
         return this;
