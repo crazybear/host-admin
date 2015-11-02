@@ -114,8 +114,7 @@ HostAdmin.prototype = {
         return this;
     },
     change : function(filter, setOption){
-        var filterKeys = Object.keys(filter);
-        if(filterKeys.length == 1 && filterKeys[0] == 'group' && setOption.name){
+        if(filter.group && setOption.name){
             //change group name
             this._groupFilter(filter, function(){
                 setOption.name && (this.name = setOption.name);
@@ -133,10 +132,37 @@ HostAdmin.prototype = {
         });
         return this;
     },
+    each : function(callback, data){
+        data = data || this._dataCache;
+        var _this = this, i = 0, flag = true;
+        for(i; i < data.length; i++){
+            if(data[i].type == 'group'){
+                flag = _this.each(callback, data[i].value);
+            }else{
+                flag = callback.call(data[i], data[i]);
+            }
+            if(flag == false){
+                break;
+            }
+        }
+        return flag;
+    },
+    eachGroup : function(callback, data){
+        var i = 0, data = data || this._dataCache, flag = true;
+        for(i; i < data.length; i++){
+            if(data[i].type == 'group'){
+                flag = callback.call(data[i], data[i]);
+                if(flag == false){
+                    break;
+                }
+            }
+        }
+        return this;
+    },
     _filter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
-        this._each(function(item){
+        this.each(function(item){
             var pass = true;
             if(pass && rule.group != undefined){
                 pass = rule.group == item.parent;
@@ -172,40 +198,13 @@ HostAdmin.prototype = {
     _groupFilter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
-        this._eachGroup(function(item){
+        this.eachGroup(function(item){
             if(rule.group == item.name){
                 callback.call(item, item);
                 res.push(item);
             }
         });
         return res;
-    },
-    _each : function(callback, data){
-        data = data || this._dataCache;
-        var _this = this, i = 0, flag = true;
-        for(i; i < data.length; i++){
-            if(data[i].type == 'group'){
-                flag = _this._each(callback, data[i].value);
-            }else{
-                flag = callback.call(data[i], data[i]);
-            }
-            if(flag == false){
-                break;
-            }
-        }
-        return flag;
-    },
-    _eachGroup : function(callback, data){
-        var i = 0, data = data || this._dataCache, flag = true;
-        for(i; i < data.length; i++){
-            if(data[i].type == 'group'){
-                flag = callback.call(data[i], data[i]);
-                if(flag == false){
-                    break;
-                }
-            }
-        }
-        return this;
     },
     clone : function(callback){
         callback = callback || function(){};
