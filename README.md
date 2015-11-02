@@ -1,4 +1,7 @@
-#Host-admin  
+# Host-admin  
+
+
+[![NPM Version](http://img.shields.io/npm/v/host-admin.svg?style=flat)](https://www.npmjs.org/package/host-admin)
 
 ##快速开始
 ```js
