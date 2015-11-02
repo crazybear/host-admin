@@ -2,7 +2,7 @@
 
 ##快速开始
 ```bash
-$ npm install host- -g
+$ npm install host-admin -g
 ```
 ```js
 var HostAdmin = require('host-admin');

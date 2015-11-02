@@ -1,8 +1,8 @@
 {
   "name": "host-admin",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "admin your hosts",
-  "main": "admin.js",
+  "main": "host-admin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
