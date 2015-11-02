@@ -1,9 +1,9 @@
-hosts-admin
+host-admin
 ===========
 
-##快速开始
+###快速开始
 ```js
-var HostAdmin = require('../host-admin.js');
+var HostAdmin = require('host-admin');
 var host = HostAdmin();
 host.add({
     ip : '127.0.0.1',
@@ -12,35 +12,8 @@ host.add({
 });
 host.writeFile();
 ```
-hostsFile
+*hostsFile*
 ```
 127.0.0.1 local.host.com #comment
 ```
 
-
-
-
-
-```js
-var host = HostAdmin().change({
-    ip : '127.0.0.1',
-    group : 'js server local',
-    comment : 'old comment'
-}, {
-    ip : '999.999.999.999',
-    enable : false,
-    comment : 'new comment'
-}).change({
-    group : 'js server local'
-}, {
-    name : 'js server'
-}).change({
-    text : '# Host Database'
-}, {
-    text : '# Host Database 123'
-}).add({
-    group : 'js server'
-}).add({
-    group : 'js server new'
-}).writeFile();
-```
