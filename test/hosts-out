@@ -34,9 +34,19 @@
 127.0.0.2 www.js.youku.com
 127.0.0.2 static.youku.com
 127.0.0.2 www.static.youku.com
-127.0.0.1 js.server.new.com #我是comment
+127.0.0.1 js.server.new.com #我是js server分组的
 #====
 #==== develop env
+10.100.14.36 gitlab.laifeng.1verge.net
+#10.10.69.62 opm.laifeng.com
+10.100.14.36 gitlab.laifeng.1verge.net
+#10.10.69.62 opm.laifeng.com
+#====
+#==== develop env
+10.100.14.36 gitlab.laifeng.1verge.net
+#10.10.69.62 opm.laifeng.com
+10.100.14.36 gitlab.laifeng.1verge.net
+#10.10.69.62 opm.laifeng.com
 10.100.14.36 gitlab.laifeng.1verge.net
 #10.10.69.62 opm.laifeng.com
 #====
@@ -114,5 +124,6 @@
 #====
 
 #==== js server new
-#127.0.0.1 js.server.new.com #我是comment
+#127.0.0.1 js.server.new.com #我是js server new分组并且不可用
+#新加一个js server new分组的注释
 #====

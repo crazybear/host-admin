@@ -24,6 +24,10 @@
 10.100.14.36 gitlab.laifeng.1verge.net
 #     10.10.69.62 opm.laifeng.com
 #====
+#==== develop env
+10.100.14.36 gitlab.laifeng.1verge.net
+#     10.10.69.62 opm.laifeng.com
+#====
 #==== test passport
 10.10.69.199 gate.im.laifeng.com
 10.10.79.175 premium.api.youku.com

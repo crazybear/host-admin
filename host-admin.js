@@ -32,10 +32,6 @@ HostAdmin.prototype = {
         this._dataCache = file;
         return this;
     },
-    _loadJSON : function(data){
-        this._dataCache = data;
-        return this;
-    },
     add : function(setOption){
         var addData = {}, hasGroup;
         if(setOption.ip != undefined){
@@ -44,12 +40,14 @@ HostAdmin.prototype = {
                 ip : setOption.ip,
                 domain : setOption.domain,
                 comment : setOption.comment,
-                enable : (setOption.enable != undefined) ? setOption.enable : true
+                enable : (setOption.enable != undefined) ? setOption.enable : true,
+                parent : 'root'
             }
         }else if(setOption.text != undefined){
             addData = {
                 type : 'text',
-                text  : setOption.text || ''
+                text  : /^#/.test(setOption.text) ? setOption.text : '#' + setOption.text,
+                parent : 'root'
             }
         }
         if(setOption.group != undefined){
@@ -65,6 +63,7 @@ HostAdmin.prototype = {
                 });
             }
             hasGroup = this._groupFilter(setOption);
+            addData.parent = setOption.group
         }
         if(hasGroup.length > 0){
             hasGroup.forEach(function(item){
@@ -76,28 +75,42 @@ HostAdmin.prototype = {
         return this;
     },
     remove : function(filter){
+        var filterKeys = Object.keys(filter), removeData = [];
+        if(filterKeys.length == 0){
+            //clear all
+            this._dataCache.length = 0;
+        }else if(filterKeys.length == 1 && filterKeys[0] == 'group'){
+            //remove group
+
+        }else{
+            if(filter.ip !== undefined){
+                filter.type = 'ip'
+            }else if(filter.text !== undefined){
+                filter.type = 'text'
+            }
+            removeData =  this._filter(filter);
+        }
 
         return this;
     },
     change : function(filter, setOption){
         var filterKeys = Object.keys(filter);
-        if(filterKeys.length == 1 && filterKeys[0] == 'group'){
-            //change group
+        if(filterKeys.length == 1 && filterKeys[0] == 'group' && setOption.name){
+            //change group name
             this._groupFilter(filter, function(){
                 setOption.name && (this.name = setOption.name);
             });
-        }else{
-            this._filter(filter, function(){
-                if(this.type == 'ip'){
-                    setOption.ip && (this.ip = setOption.ip);
-                    setOption.domain && (this.domain = setOption.domain);
-                    setOption.comment && (this.comment = setOption.comment);
-                    (setOption.enable != undefined) && (this.enable = setOption.enable);
-                }else{
-                    setOption.text && (this.text = setOption.text);
-                }
-            });
         }
+        this._filter(filter, function(){
+            if(this.type == 'ip'){
+                setOption.ip && (this.ip = setOption.ip);
+                setOption.domain && (this.domain = setOption.domain);
+                setOption.comment && (this.comment = setOption.comment);
+                (setOption.enable != undefined) && (this.enable = setOption.enable);
+            }else{
+                setOption.text && (this.text = setOption.text);
+            }
+        });
         return this;
     },
     _filter : function(rule, callback){
@@ -107,6 +120,9 @@ HostAdmin.prototype = {
             var pass = true;
             if(pass && rule.group != undefined){
                 pass = rule.group == item.parent;
+            }
+            if(pass && rule.type != undefined){
+                pass = rule.type == item.type;
             }
             if(item.type == 'ip'){
                 if(pass && rule.ip != undefined){
@@ -159,8 +175,8 @@ HostAdmin.prototype = {
         }
         return flag;
     },
-    _eachGroup : function(callback){
-        var _this = this, i = 0, data = this._dataCache, flag = true;
+    _eachGroup : function(callback, data){
+        var i = 0, data = data || this._dataCache, flag = true;
         for(i; i < data.length; i++){
             if(data[i].type == 'group'){
                 flag = callback.call(data[i], data[i]);
@@ -264,7 +280,7 @@ HostAdmin.prototype = {
         return res;
     },
     _groupFormatData : function(data){
-        var res = [], group = null;
+        var res = [], group = null, _this = this;
         data.forEach(function(d){
             if(d.type == 'text'){
                 if(group){
@@ -326,3 +342,4 @@ HostAdmin.prototype = {
 const API = module.exports = function(o){
     return new HostAdmin(o);
 };
+API.OS_HOST = _OS_HOSTS_DIR;
