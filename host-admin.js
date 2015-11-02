@@ -13,18 +13,33 @@ var HostAdmin = function(o){
 };
 HostAdmin.prototype = {
     constructor : HostAdmin,
+    /**
+     * 格式化一个文件
+     * @param dir {String} host文件地址
+     * @return {HostAdmin}
+     * */
     readFile : function(dir){
         dir = dir || _OS_HOSTS_DIR;
         var file = fs.readFileSync(dir, 'utf-8');
         this.formatFile(file);
         return this;
     },
+    /**
+     * 写文件
+     * @param dir {String} host文件地址
+     * @return {HostAdmin}
+     * */
     writeFile : function(dir){
         dir = dir || _HOSTS_DIR;
         var str = this._stringifyData(this._dataCache);
         fs.writeFileSync(dir, str, 'utf-8');
         return this;
     },
+    /**
+     * 格式化文件转为json
+     * @param file {String} host文件内容
+     * @return {HostAdmin}
+     * */
     formatFile : function(file){
         file = file.split(os.EOL);
         file = this._formatFileArray(file);
@@ -32,8 +47,13 @@ HostAdmin.prototype = {
         this._dataCache = file;
         return this;
     },
+    /**
+     * 添加
+     * @param setOption {Object} 配置
+     * @return {HostAdmin}
+     * */
     add : function(setOption){
-        var addData = {}, hasGroup;
+        var addData = {}, hasGroup = [];
         if(setOption.ip != undefined){
             addData = {
                 type : 'ip',
@@ -74,6 +94,11 @@ HostAdmin.prototype = {
         }
         return this;
     },
+    /**
+     * 删除
+     * @param setOption {Object} 配置
+     * @return {HostAdmin}
+     * */
     remove : function(filter){
         var filterKeys = Object.keys(filter), removeData = [], groupData = [], _this = this;
         if(filterKeys.length == 0){
@@ -113,6 +138,12 @@ HostAdmin.prototype = {
 
         return this;
     },
+    /**
+     * 修改
+     * @param filter {Object} 过滤器
+     * @param setOption {Object} 配置
+     * @return {HostAdmin}
+     * */
     change : function(filter, setOption){
         if(filter.group && setOption.name){
             //change group name
@@ -132,6 +163,11 @@ HostAdmin.prototype = {
         });
         return this;
     },
+    /**
+     * 遍历每一个节点
+     * @param callback {Function}
+     * @return {HostAdmin}
+     * */
     each : function(callback, data){
         data = data || this._dataCache;
         var _this = this, i = 0, flag = true;
@@ -147,6 +183,11 @@ HostAdmin.prototype = {
         }
         return flag;
     },
+    /**
+     * 遍历每一个组
+     * @param callback {Function}
+     * @return {HostAdmin}
+     * */
     eachGroup : function(callback, data){
         var i = 0, data = data || this._dataCache, flag = true;
         for(i; i < data.length; i++){
@@ -159,6 +200,12 @@ HostAdmin.prototype = {
         }
         return this;
     },
+    /**
+     * 过滤器
+     * @param rule {Object} 过滤规则
+     * @param callback {Function}
+     * @return {Array}
+     * */
     _filter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -195,6 +242,12 @@ HostAdmin.prototype = {
         });
         return res;
     },
+    /**
+     * 组过滤器
+     * @param rule {Object} 过滤规则
+     * @param callback {Function}
+     * @return {Array}
+     * */
     _groupFilter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -206,6 +259,11 @@ HostAdmin.prototype = {
         });
         return res;
     },
+    /**
+     * 复制
+     * @param callback {Function}
+     * @return {Array}
+     * */
     clone : function(callback){
         callback = callback || function(){};
         var res = [], _this = this, obj = null, callbackReturn;
