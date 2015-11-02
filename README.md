@@ -52,6 +52,12 @@ host.writeFile(path);
 ##HostAdmin.OS_HOST 
 **系统hosts路径**  
 
+##.readFile([path])
+**path default:** *HostAdmin.OS_HOST*  
+
+##.writeFile([path])
+**path default:** *HostAdmin.OS_HOST*  
+
 ##.add(setOption)  
 ####添加注释行  
 ```js
