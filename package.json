@@ -1,6 +1,6 @@
 {
   "name": "host-admin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "admin your hosts",
   "main": "admin.js",
   "scripts": {
