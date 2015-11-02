@@ -7,9 +7,9 @@ const _IP_REG = /^(#*)((1?\d?\d|(2([0-4]\d|5[0-5])))\.){3}(1?\d?\d|(2([0-4]\d|5[
 const _IP_REPLACE_REG = /^#(\s)((1?\d?\d|(2([0-4]\d|5[0-5])))\.){3}(1?\d?\d|(2([0-4]\d|5[0-5])))/;
 const _OS_HOSTS_DIR = os.platform() == 'win32' ? 'C:/Windows/System32/drivers/etc/hosts': '/etc/hosts';
 
-var HostAdmin = function(o){
+var HostAdmin = function(){
     this._dataCache = [];
-    return this.readFile(o);
+    return this;
 };
 HostAdmin.prototype = {
     constructor : HostAdmin,
@@ -17,7 +17,7 @@ HostAdmin.prototype = {
      * 格式化一个文件
      * @param dir {String} host文件地址
      * @return {HostAdmin}
-     * */
+     **/
     readFile : function(dir){
         dir = dir || _OS_HOSTS_DIR;
         var file = fs.readFileSync(dir, 'utf-8');
@@ -28,9 +28,9 @@ HostAdmin.prototype = {
      * 写文件
      * @param dir {String} host文件地址
      * @return {HostAdmin}
-     * */
+     **/
     writeFile : function(dir){
-        dir = dir || _HOSTS_DIR;
+        dir = dir || _OS_HOSTS_DIR;
         var str = this._stringifyData(this._dataCache);
         fs.writeFileSync(dir, str, 'utf-8');
         return this;
@@ -39,7 +39,7 @@ HostAdmin.prototype = {
      * 格式化文件转为json
      * @param file {String} host文件内容
      * @return {HostAdmin}
-     * */
+     **/
     formatFile : function(file){
         file = file.split(os.EOL);
         file = this._formatFileArray(file);
@@ -51,7 +51,7 @@ HostAdmin.prototype = {
      * 添加
      * @param setOption {Object} 配置
      * @return {HostAdmin}
-     * */
+     **/
     add : function(setOption){
         var addData = {}, hasGroup = [];
         if(setOption.ip != undefined){
@@ -96,9 +96,9 @@ HostAdmin.prototype = {
     },
     /**
      * 删除
-     * @param setOption {Object} 配置
+     * @param filter {Object} 配置
      * @return {HostAdmin}
-     * */
+     **/
     remove : function(filter){
         var filterKeys = Object.keys(filter), removeData = [], groupData = [], _this = this;
         if(filterKeys.length == 0){
@@ -143,7 +143,7 @@ HostAdmin.prototype = {
      * @param filter {Object} 过滤器
      * @param setOption {Object} 配置
      * @return {HostAdmin}
-     * */
+     **/
     change : function(filter, setOption){
         if(filter.group && setOption.name){
             //change group name
@@ -166,8 +166,9 @@ HostAdmin.prototype = {
     /**
      * 遍历每一个节点
      * @param callback {Function}
+     * @param data
      * @return {HostAdmin}
-     * */
+     **/
     each : function(callback, data){
         data = data || this._dataCache;
         var _this = this, i = 0, flag = true;
@@ -186,8 +187,9 @@ HostAdmin.prototype = {
     /**
      * 遍历每一个组
      * @param callback {Function}
+     * @param data
      * @return {HostAdmin}
-     * */
+     **/
     eachGroup : function(callback, data){
         var i = 0, data = data || this._dataCache, flag = true;
         for(i; i < data.length; i++){
@@ -205,7 +207,7 @@ HostAdmin.prototype = {
      * @param rule {Object} 过滤规则
      * @param callback {Function}
      * @return {Array}
-     * */
+     **/
     _filter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -247,7 +249,7 @@ HostAdmin.prototype = {
      * @param rule {Object} 过滤规则
      * @param callback {Function}
      * @return {Array}
-     * */
+     **/
     _groupFilter : function(rule, callback){
         var res = [];
         callback = callback || function(){};
@@ -263,7 +265,7 @@ HostAdmin.prototype = {
      * 复制
      * @param callback {Function}
      * @return {Array}
-     * */
+     **/
     clone : function(callback){
         callback = callback || function(){};
         var res = [], _this = this, obj = null, callbackReturn;
@@ -416,7 +418,7 @@ HostAdmin.prototype = {
         return res.join(os.EOL);
     }
 };
-const API = module.exports = function(o){
-    return new HostAdmin(o);
+const API = module.exports = function(){
+    return new HostAdmin();
 };
 API.OS_HOST = _OS_HOSTS_DIR;
